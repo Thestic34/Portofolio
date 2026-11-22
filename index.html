@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portofolio Tegar Rachmadi, Technical Artist dan UI/UX Designer.">
+<title>Tegar Rachmadi Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Lilita+One&family=Passion+One:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: the 1920x9000 Figma board, rebuilt 1:1 and scaled to the viewport width. */
+:root{--ink:#f4f4f2;--ground:#050505;color-scheme:dark}
+html{background:var(--ground);scroll-behavior:smooth}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:Inconsolata,'Courier New',ui-monospace,monospace;overflow-x:hidden}
+#wrap{position:relative;width:100%;overflow:hidden;--s:.5}
+#stage{position:absolute;left:0;top:0;width:1920px;height:9000px;transform:scale(var(--s));transform-origin:0 0;color:#fff}
+img.e{position:absolute;max-width:none;user-select:none;-webkit-user-drag:none;display:block}
+.g{position:absolute;box-sizing:border-box;display:block;padding:0;margin:0;border:0;background:none;color:inherit;font:inherit;text-align:left;text-decoration:none;-webkit-tap-highlight-color:transparent}
+a.g,button.g{cursor:pointer}
+.g:focus-visible{outline:2px solid #fff;outline-offset:8px}
+.anchor{position:absolute;left:0;width:1px;height:1px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0}
+.bg{left:0;top:0}
+
+/* text that replaces the exported PNGs; sizes are fitted to the original width by the script below */
+.tb{position:absolute;display:flex;box-sizing:border-box;color:inherit}
+.t{display:block;white-space:nowrap;line-height:1;color:inherit;margin:0}
+.ml{font-family:'Lilita One','Passion One',Impact,sans-serif;font-weight:400}
+.ps{font-family:'Passion One','Arial Narrow',Impact,sans-serif;font-weight:700}
+.mo{font-family:Inconsolata,'Courier New',ui-monospace,monospace;font-weight:400}
+.mb{font-family:Inconsolata,'Courier New',ui-monospace,monospace;font-weight:700}
+.outl .t{color:transparent;-webkit-text-stroke:5px #fff}
+.dk{color:#050505}
+.t.vert{writing-mode:vertical-rl;transform:rotate(180deg)}
+
+/* hero intro */
+@keyframes inL{from{opacity:0;translate:-180px 0}to{opacity:1;translate:0 0}}
+@keyframes inR{from{opacity:0;translate:180px 0}to{opacity:1;translate:0 0}}
+@keyframes rise{from{opacity:0;translate:0 140px;scale:.94}to{opacity:1;translate:0 0;scale:1}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.h-porto{animation:inL 1.1s cubic-bezier(.16,1,.3,1) .1s both}
+.h-folio{animation:inR 1.1s cubic-bezier(.16,1,.3,1) .1s both}
+.h-photo{animation:rise 1.3s cubic-bezier(.16,1,.3,1) .3s both}
+.h-fade{animation:fade .9s ease .9s both}
+.px{transform:translate(calc(var(--mx,0)*var(--k,0)*1px),calc(var(--my,0)*var(--k,0)*.5px));will-change:transform}
+@keyframes pulse{50%{opacity:.5}}
+.glow{animation:pulse 6s ease-in-out infinite}
+.glow-b{animation-delay:-3s}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(255,255,255,.4)}80%,100%{box-shadow:0 0 0 26px rgba(255,255,255,0)}}
+.ring{border-radius:31px;animation:ring 2.6s ease-out 1.2s infinite}
+@keyframes bob{50%{translate:0 9px}}
+.arrow{animation:bob 1.3s ease-in-out infinite}
+
+/* buttons */
+.btn{transition:filter .25s,transform .25s cubic-bezier(.2,.8,.2,1)}
+.btn:hover,.btn:focus-visible{filter:invert(1);transform:translateY(-5px)}
+
+/* marquee: two identical cycles, shifted by exactly half the track */
+.band{overflow:hidden}
+.band .track{position:absolute;left:0;top:0;height:154px;display:flex;width:max-content;animation:marq 26s linear infinite}
+.band:hover .track{animation-play-state:paused}
+.cyc{display:flex;align-items:center;gap:50px;padding-right:50px;flex:none;height:154px}
+.cyc .tb{position:relative;flex:none;align-items:center;justify-content:center}
+.dotm{display:block;flex:none}
+@keyframes marq{to{translate:-50% 0}}
+
+/* scroll reveal: starts visible without script, hides only once script is running */
+@keyframes rvIn{from{opacity:0;translate:0 70px}to{opacity:1;translate:0 0}}
+html.js .rv:not(.in){opacity:0}
+html.js .rv.in{animation:rvIn .9s cubic-bezier(.2,.8,.2,1) var(--d,0s) both}
+
+/* about: playlist rows */
+.trk::before,.proj::before{content:"";position:absolute;inset:0;background:rgba(255,255,255,.09);opacity:0;transition:opacity .25s}
+.trk:hover::before,.trk:focus-visible::before,.trk.playing::before{opacity:1}
+.trk.playing::before{background:rgba(255,255,255,.15)}
+.alb{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.trk:hover .alb{transform:scale(1.12) rotate(-4deg)}
+.eq{position:absolute;right:34px;top:50%;margin-top:-18px;height:36px;display:none;gap:5px;align-items:flex-end}
+.trk.playing .eq{display:flex}
+.eq i{display:block;width:6px;height:8px;background:#fff;animation:eq .9s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:-.3s}.eq i:nth-child(3){animation-delay:-.6s}.eq i:nth-child(4){animation-delay:-.15s}
+@keyframes eq{50%{height:34px}}
+.search{transition:filter .3s}
+.search:hover{filter:drop-shadow(0 0 22px rgba(255,255,255,.35))}
+
+/* experience cards */
+.card{transition:transform .4s cubic-bezier(.2,.8,.2,1),filter .4s}
+.card:hover{transform:translateY(-18px);filter:drop-shadow(0 28px 40px rgba(255,255,255,.16))}
+.ico{transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.card:hover .ico{transform:translateY(-8px) rotate(-8deg) scale(1.1)}
+
+/* skill rows */
+.srow{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.srow:hover{transform:translateX(22px)}
+@keyframes shake{20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.locked:hover .tb{animation:shake .5s}
+.logos{transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.logos:hover{transform:scale(1.05)}
+
+/* projects */
+.pimg{transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.proj:hover .pimg{transform:scale(1.05) rotate(.6deg)}
+.ptitle{transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.proj:hover .ptitle{transform:translateX(24px)}
+.proj:hover::before,.proj:focus-visible::before{opacity:.55}
+.go{position:absolute;right:34px;top:50%;margin-top:-52px;width:104px;height:104px;border:2px solid #fff;border-radius:50%;display:grid;place-items:center;opacity:0;transform:scale(.6) rotate(-45deg);transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1)}
+.go svg{width:46px;height:46px}
+.proj:hover .go,.proj:focus-visible .go{opacity:1;transform:none}
+
+/* contact */
+.crow{color:#fff;transition:background .25s,color .25s}
+.crow:hover,.crow:focus-visible{background:#fff;color:#050505}
+.ci{position:absolute}
+.stub{transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+.stub:hover{transform:translateX(20px) rotate(1.4deg)}
+.scan{position:absolute;left:262px;top:148px;width:177px;height:3px;background:#fff;box-shadow:0 0 16px 3px rgba(255,255,255,.7);animation:scan 2.8s ease-in-out infinite alternate;opacity:.8}
+@keyframes scan{to{translate:0 362px}}
+.dot{animation:pulse 2.4s ease-in-out infinite}
+
+#toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);background:#fff;color:#050505;font:700 14px/1.4 Inconsolata,'Courier New',ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;padding:13px 20px;opacity:0;pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.2,.8,.2,1);z-index:20}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+
+</head>
+<body>
+<div id="wrap"><div id="stage">
+<img class="e bg" src="img/000-background-paten.webp" width="1920" height="9000" alt="" style="left:0px;top:0px;"  draggable="false">
+<section id="top" aria-label="Hero">
+<img class="e rv hl" src="img/001-vector-1.webp" width="1916" height="1" alt="" style="left:3px;top:195.5px;"  draggable="false">
+<img class="e glow glow-a" src="img/002-rectangle-48.webp" width="868" height="1743" alt="" style="left:520px;top:153px;"  draggable="false">
+<img class="e glow glow-b" src="img/003-rectangle-49.webp" width="1241" height="690" alt="" style="left:341.5px;top:1341.8px;"  draggable="false">
+<h1 class="sr">Tegar Rachmadi Portfolio</h1>
+<div class="tb px h-porto" style="left:108px;top:796px;width:745px;height:180px;align-items:center;justify-content:flex-start;--k:-18;"><span class="t ml" style="text-align:left;font-size:264.7px" data-w="745" data-h="180" data-n="1" data-ink="0.66" data-fs="264.7">PORTO</span></div>
+<div class="tb px h-folio outl" style="left:1155px;top:791px;width:674px;height:190px;align-items:center;justify-content:flex-start;--k:-18;"><span class="t ml" style="text-align:left;font-size:279.4px" data-w="674" data-h="190" data-n="1" data-ink="0.66" data-fs="279.4">FOLIO</span></div>
+<img class="e px h-photo" src="img/004-foto-hd-8x-1.webp" width="613" height="1241" alt="Tegar Rachmadi, tangan menyilang" style="left:654px;top:353px;--k:22;"  draggable="false">
+<div class="tb h-fade" style="left:47px;top:82px;width:275px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.3px" data-w="275" data-h="26" data-n="1" data-ink="0.66" data-fs="39.3">TEGAR RACHMADI</span></div>
+<div class="g ring" style="left:1492px;top:64px;width:385px;height:62px;" ><img class="e" src="img/005-rectangle-50.webp" width="385" height="62" alt="" style="left:0px;top:0px;"  draggable="false"></div>
+<div class="tb h-fade" style="left:1536.5px;top:82px;width:295px;height:26px;align-items:center;justify-content:center;"><span class="t mo" style="text-align:center;font-size:39.3px" data-w="295" data-h="26" data-n="1" data-ink="0.66" data-fs="39.3">INTERNSHIP 2026</span></div>
+<div class="tb h-fade" style="left:83px;top:263.5px;width:559px;height:21px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:33.9px" data-w="559" data-h="21" data-n="1" data-ink="0.66" data-fs="33.9">CODE : 969 ~ THE CITY OF SURABAYA</span></div>
+<div class="tb h-fade" style="left:1314px;top:263.5px;width:544px;height:21px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:34px" data-w="544" data-h="21" data-n="1" data-ink="0.66" data-fs="34">ARCTIC MONKEYS ~ DO I WANNA KNOW</span></div>
+<div class="tb h-fade" style="left:83px;top:1686.5px;width:998px;height:29px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.9px" data-w="998" data-h="29" data-n="1" data-ink="0.66" data-fs="39.9">TECHNICAL ARTIST - UI/UX DESIGNER - GAME DEVELOPER</span></div>
+<a class="g btn scroll-pill h-fade" style="left:1444px;top:1661px;width:372px;height:80px;" href="#about" aria-label="Scroll down ke About"><img class="e" src="img/006-rectangle-52.webp" width="372" height="80" alt="" style="left:0px;top:0px;"  draggable="false"><div class="tb dk" style="left:21.5px;top:24.5px;width:261px;height:31px;align-items:center;justify-content:center;"><span class="t ps" style="text-align:center;font-size:43.1px" data-w="261" data-h="31" data-n="1" data-ink="0.66" data-fs="43.1">SCROLL DOWN</span></div><img class="e arrow" src="img/007-arrow-1.webp" width="59" height="55" alt="" style="left:294.5px;top:12.5px;"  draggable="false"></a>
+<div class="g band" style="left:0px;top:1796px;width:1920px;height:154px;" role="img" aria-label="Technical Artist, UI/UX Designer, Game Developer"><img class="e" src="img/009-rectangle-53.webp" width="1920" height="154" alt="" style="left:0px;top:0px;"  draggable="false"><div class="track"><div class="cyc" aria-hidden="true"><div class="tb mq" style="width:531px;height:73px"><span class="t ps dk" data-w="531" data-h="47" data-n="1" data-ink="0.66" data-fs="64" style="font-size:64px">TECHNICAL ARTIST</span></div><img class="dotm" src="img/008-ellipse-2.webp" width="29" height="29" alt=""><div class="tb mq" style="width:481px;height:73px"><span class="t ps dk" data-w="481" data-h="47" data-n="1" data-ink="0.66" data-fs="64" style="font-size:64px">UI/UX DESIGNER</span></div><img class="dotm" src="img/008-ellipse-2.webp" width="29" height="29" alt=""><div class="tb mq" style="width:504px;height:73px"><span class="t ps dk" data-w="504" data-h="47" data-n="1" data-ink="0.66" data-fs="64" style="font-size:64px">GAME DEVELOPER</span></div><img class="dotm" src="img/008-ellipse-2.webp" width="29" height="29" alt=""></div><div class="cyc" aria-hidden="true"><div class="tb mq" style="width:531px;height:73px"><span class="t ps dk" data-w="531" data-h="47" data-n="1" data-ink="0.66" data-fs="64" style="font-size:64px">TECHNICAL ARTIST</span></div><img class="dotm" src="img/008-ellipse-2.webp" width="29" height="29" alt=""><div class="tb mq" style="width:481px;height:73px"><span class="t ps dk" data-w="481" data-h="47" data-n="1" data-ink="0.66" data-fs="64" style="font-size:64px">UI/UX DESIGNER</span></div><img class="dotm" src="img/008-ellipse-2.webp" width="29" height="29" alt=""><div class="tb mq" style="width:504px;height:73px"><span class="t ps dk" data-w="504" data-h="47" data-n="1" data-ink="0.66" data-fs="64" style="font-size:64px">GAME DEVELOPER</span></div><img class="dotm" src="img/008-ellipse-2.webp" width="29" height="29" alt=""></div></div></div>
+</section>
+<span id="about" class="anchor" style="top:1960px"></span>
+<section aria-label="About me">
+<img class="e rv big-logo" src="img/010-logo-spotify.webp" width="1246" height="1246" alt="" style="left:692px;top:2029px;"  draggable="false">
+<div class="tb rv" style="left:95px;top:2017.5px;width:277px;height:29px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.6px" data-w="277" data-h="29" data-n="1" data-ink="0.66" data-fs="39.6">PAGE 1 / ABOUT</span></div>
+<div class="tb rv" style="left:95px;top:2072.5px;width:422px;height:65px;align-items:center;justify-content:flex-start;"><span class="t ps" style="text-align:left;font-size:90.3px" data-w="422" data-h="65" data-n="1" data-ink="0.66" data-fs="90.3">ABOUT ME</span></div>
+<img class="e rv" src="img/011-background-spotify.webp" width="655" height="861" alt="" style="left:95px;top:2180px;"  draggable="false">
+<div class="g rv search" style="left:194px;top:2221px;width:509px;height:50px;" ><img class="e" src="img/012-rectangle-54.webp" width="509" height="50" alt="" style="left:0px;top:0px;"  draggable="false"><div class="tb" style="left:36px;top:17.5px;width:309px;height:14px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:19.9px" data-w="309" data-h="14" data-n="1" data-ink="0.66" data-fs="19.9">APA YANG INGIN KAMU DENGARKAN ?</span></div><img class="e" src="img/013-x.webp" width="12" height="18" alt="" style="left:475px;top:16px;"  draggable="false"><img class="e" src="img/014-arrow-2.webp" width="31" height="30" alt="" style="left:-25px;top:10px;"  draggable="false"></div>
+<div class="tb rv" style="left:126px;top:2328.5px;width:207px;height:21px;align-items:center;justify-content:flex-start;"><span class="t mb" style="text-align:left;font-size:31.8px" data-w="207" data-h="21" data-n="1" data-ink="0.66" data-fs="31.8">RECENTLY PLAY</span></div>
+<button class="g rv trk" style="left:95px;top:2380px;width:654px;height:144px;" type="button" aria-pressed="false" aria-label="Putar Tegar Rachmadi" style="--d:0.0s"><img class="e alb" src="img/015-4e77680d462903059274f3d6b0c33d04.webp" width="89" height="89" alt="" style="left:33px;top:23px;"  draggable="false"><div class="tb" style="left:187px;top:55px;width:275px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.3px" data-w="275" data-h="26" data-n="1" data-ink="0.66" data-fs="39.3">TEGAR RACHMADI</span></div><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+<img class="e hl rv" src="img/016-vector-2.webp" width="654" height="1" alt="" style="left:97px;top:2379.5px;"  draggable="false">
+<button class="g rv trk" style="left:95px;top:2524px;width:654px;height:130px;" type="button" aria-pressed="false" aria-label="Putar D4 Game Technology" style="--d:0.05s"><img class="e alb" src="img/017-4e77680d462903059274f3d6b0c33d04.webp" width="89" height="89" alt="" style="left:33px;top:18px;"  draggable="false"><div class="tb" style="left:187px;top:45px;width:358px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mb" style="text-align:left;font-size:39.8px" data-w="358" data-h="26" data-n="1" data-ink="0.66" data-fs="39.8">D4 GAME TECHNOLOGY</span></div><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+<img class="e hl rv" src="img/018-vector-3.webp" width="654" height="1" alt="" style="left:95px;top:2523.5px;"  draggable="false">
+<button class="g rv trk" style="left:95px;top:2654px;width:654px;height:130px;" type="button" aria-pressed="false" aria-label="Putar Ui/Ux Designer" style="--d:0.1s"><img class="e alb" src="img/019-4e77680d462903059274f3d6b0c33d04.webp" width="89" height="89" alt="" style="left:31px;top:18px;"  draggable="false"><div class="tb" style="left:187px;top:48.5px;width:277px;height:29px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.6px" data-w="277" data-h="29" data-n="1" data-ink="0.66" data-fs="39.6">UI/UX DESIGNER</span></div><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+<img class="e hl rv" src="img/020-vector-4.webp" width="654" height="1" alt="" style="left:97px;top:2653.5px;"  draggable="false">
+<button class="g rv trk" style="left:95px;top:2784px;width:654px;height:131px;" type="button" aria-pressed="false" aria-label="Putar Eepis" style="--d:0.15000000000000002s"><img class="e alb" src="img/021-4e77680d462903059274f3d6b0c33d04.webp" width="89" height="89" alt="" style="left:31px;top:19px;"  draggable="false"><div class="tb" style="left:189px;top:50px;width:97px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mb" style="text-align:left;font-size:38.8px" data-w="97" data-h="26" data-n="1" data-ink="0.66" data-fs="38.8">EEPIS</span></div><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+<img class="e hl rv" src="img/022-vector-5.webp" width="654" height="1" alt="" style="left:95px;top:2783.5px;"  draggable="false">
+<img class="e hl rv" src="img/023-vector-6.webp" width="654" height="1" alt="" style="left:95px;top:2914.5px;"  draggable="false">
+<a class="g btn rv cv" style="left:128px;top:2957px;width:201px;height:43px;" href="CV-Tegar_Rachmadi.pdf" target="_blank" rel="noopener" aria-label="Buka CV Tegar Rachmadi"><img class="e" src="img/024-rectangle-55.webp" width="201" height="43" alt="" style="left:0px;top:0px;"  draggable="false"><div class="tb" style="left:56px;top:13.5px;width:90px;height:16px;align-items:center;justify-content:center;"><span class="t mb" style="text-align:center;font-size:20px" data-w="90" data-h="16" data-n="1" data-ink="0.82" data-fs="20">Tempat CV</span></div></a>
+<a class="g btn rv" style="left:491px;top:2957px;width:201px;height:43px;" href="#contact"><img class="e" src="img/025-rectangle-56.webp" width="201" height="43" alt="" style="left:0px;top:0px;"  draggable="false"><div class="tb" style="left:65.5px;top:15px;width:69px;height:13px;align-items:center;justify-content:center;"><span class="t mb" style="text-align:center;font-size:19.7px" data-w="69" data-h="13" data-n="1" data-ink="0.82" data-fs="19.7">Contact</span></div></a>
+<div class="tb rv" style="left:800px;top:2206px;width:1042px;height:243px;align-items:flex-start;justify-content:flex-start;--d:.1s;"><span class="t ps" style="text-align:left;font-size:55.2px" data-w="1042" data-h="243" data-n="4" data-ink="0.7" data-fs="55.2" data-top="1">BRIDGING COMMUNICATION BETWEEN THE<br>GAME SYSTEM AND THE PLAYER TO ENSURE<br>THE GAMING EXPERIENCE FEELS INTUITIVE,<br>IMMERSIVE, AND LOOK FUN</span></div>
+<div class="tb rv" style="left:800px;top:2503px;width:916px;height:289px;align-items:flex-start;justify-content:flex-start;--d:.2s;"><span class="t mo" style="text-align:left;font-size:39.8px" data-w="916" data-h="289" data-n="7" data-ink="0.82" data-fs="39.8" data-top="1">Hi, I’m Tegar Rachmadi, a Game Technology (D4)<br>student at Electronic Engineering Polytechnic<br>Institute of Surabaya. I’m a Technical Artist<br>and UI/UX Designer, building asset pipelines,<br>optimizing performance, and designing game UI<br>with Unity, Unreal Engine, and Figma. I’m<br>seeking a game studio internship.</span></div>
+</section>
+<section aria-label="My experience">
+<div class="tb rv" style="left:95px;top:3149.5px;width:257px;height:29px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.5px" data-w="257" data-h="29" data-n="1" data-ink="0.66" data-fs="39.5">PAGE 2 / WORK</span></div>
+<div class="tb rv" style="left:102px;top:3278px;width:632px;height:65px;align-items:center;justify-content:flex-start;"><span class="t ps" style="text-align:left;font-size:90.3px" data-w="632" data-h="65" data-n="1" data-ink="0.66" data-fs="90.3">MY EXPERIENCE</span></div>
+<div class="g rv card" style="left:141px;top:3492px;width:353px;height:282px;" style="--d:0.0s"><img class="e" src="img/026-background-work.webp" width="353" height="282" alt="" style="left:0px;top:0px;"  draggable="false"><img class="e ico" src="img/027-minimal-white-outline-icon-set-1.webp" width="135" height="121" alt="" style="left:109px;top:-61px;"  draggable="false"><div class="tb" style="left:78px;top:121.5px;width:196px;height:68px;align-items:center;justify-content:center;"><span class="t mo" style="text-align:center;font-size:39.2px" data-w="196" data-h="68" data-n="2" data-ink="0.66" data-fs="39.2">5 YEARS<br>EXPERIENCE</span></div></div>
+<div class="g rv card" style="left:569px;top:3492px;width:353px;height:282px;" style="--d:0.1s"><img class="e" src="img/028-background-work-1.webp" width="353" height="282" alt="" style="left:0px;top:0px;"  draggable="false"><img class="e ico" src="img/029-minimal-white-outline-icon-set-2.webp" width="146" height="136" alt="" style="left:103px;top:-68px;"  draggable="false"><div class="tb" style="left:107.5px;top:123.5px;width:137px;height:68px;align-items:center;justify-content:center;"><span class="t mo" style="text-align:center;font-size:39.1px" data-w="137" data-h="68" data-n="2" data-ink="0.66" data-fs="39.1">5+<br>PROJECT</span></div></div>
+<div class="g rv card" style="left:997px;top:3492px;width:353px;height:282px;" style="--d:0.2s"><img class="e" src="img/030-background-work-2.webp" width="353" height="282" alt="" style="left:0px;top:0px;"  draggable="false"><img class="e ico" src="img/031-minimal-white-outline-icon-set-3.webp" width="152" height="141" alt="" style="left:100px;top:-71px;"  draggable="false"><div class="tb" style="left:78px;top:123.5px;width:196px;height:68px;align-items:center;justify-content:center;"><span class="t mo" style="text-align:center;font-size:39.2px" data-w="196" data-h="68" data-n="2" data-ink="0.66" data-fs="39.2">500 HOURS+<br>DESIGNING</span></div></div>
+<div class="g rv card" style="left:1425px;top:3492px;width:353px;height:282px;" style="--d:0.30000000000000004s"><img class="e" src="img/032-background-work-3.webp" width="353" height="282" alt="" style="left:0px;top:0px;"  draggable="false"><img class="e ico" src="img/033-minimal-white-outline-icon-set-4.webp" width="120" height="150" alt="" style="left:116px;top:-75px;"  draggable="false"><div class="tb" style="left:127.5px;top:123.5px;width:97px;height:68px;align-items:center;justify-content:center;"><span class="t mo" style="text-align:center;font-size:38.8px" data-w="97" data-h="68" data-n="2" data-ink="0.66" data-fs="38.8">5+<br>TOOLS</span></div></div>
+</section>
+<section aria-label="Skill and tools">
+<div class="tb rv" style="left:95px;top:3924.5px;width:436px;height:29px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.6px" data-w="436" data-h="29" data-n="1" data-ink="0.66" data-fs="39.6">PAGE 3 / SKILL &amp; TOOLS</span></div>
+<img class="e rv" src="img/034-background-skill.webp" width="677" height="507" alt="" style="left:141px;top:4088px;"  draggable="false">
+<img class="e rv" src="img/035-background-tools.webp" width="677" height="507" alt="" style="left:1069px;top:4088px;"  draggable="false">
+<div class="tb rv" style="left:165px;top:4121.5px;width:166px;height:42px;align-items:center;justify-content:flex-start;"><span class="t ps" style="text-align:left;font-size:58.3px" data-w="166" data-h="42" data-n="1" data-ink="0.66" data-fs="58.3">SKILL :</span></div>
+<div class="tb rv" style="left:1097px;top:4121.5px;width:195px;height:42px;align-items:center;justify-content:flex-start;"><span class="t ps" style="text-align:left;font-size:58.3px" data-w="195" data-h="42" data-n="1" data-ink="0.66" data-fs="58.3">TOOLS :</span></div>
+<img class="e rv logos" src="img/036-creative-software-logo-asset-she.webp" width="557" height="371" alt="Logo Unity, Unreal Engine, Visual Studio Code, Figma, Canva, Photoshop, CorelDRAW" style="left:1069px;top:4135px;"  draggable="false">
+<div class="g rv srow" style="left:141px;top:4188px;width:677px;height:77.5px;" style="--d:0.0s"><div class="tb" style="left:24px;top:42.5px;width:278px;height:29px;align-items:center;justify-content:flex-start;"><span class="t mb" style="text-align:left;font-size:39.7px" data-w="278" data-h="29" data-n="1" data-ink="0.66" data-fs="39.7">UI/UX DESIGNER</span></div></div>
+<img class="e hl rv" src="img/037-vector-7.webp" width="668" height="1" alt="" style="left:145.5px;top:4265px;"  draggable="false">
+<div class="g rv srow" style="left:141px;top:4265.5px;width:677px;height:76px;" style="--d:0.07s"><div class="tb" style="left:19.5px;top:42.5px;width:318px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.8px" data-w="318" data-h="26" data-n="1" data-ink="0.66" data-fs="39.8">TECHNICAL ARTIST</span></div></div>
+<img class="e hl rv" src="img/038-vector-8.webp" width="668" height="1" alt="" style="left:141px;top:4341px;"  draggable="false">
+<div class="g rv srow" style="left:141px;top:4341.5px;width:677px;height:77px;" style="--d:0.14s"><div class="tb" style="left:19.5px;top:43.5px;width:337px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.6px" data-w="337" data-h="26" data-n="1" data-ink="0.66" data-fs="39.6">SECOND PROGRAMMER</span></div></div>
+<img class="e hl rv" src="img/039-vector-9.webp" width="668" height="1" alt="" style="left:141px;top:4418px;"  draggable="false">
+<div class="g rv srow locked" style="left:141px;top:4418.5px;width:677px;height:77px;" style="--d:0.21000000000000002s"><div class="tb" style="left:19.5px;top:43.5px;width:116px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:38.7px" data-w="116" data-h="26" data-n="1" data-ink="0.66" data-fs="38.7">LOCKED</span></div></div>
+<img class="e hl rv" src="img/040-vector-10.webp" width="668" height="1" alt="" style="left:141px;top:4495px;"  draggable="false">
+</section>
+<section aria-label="Recent projects">
+<div class="tb rv" style="left:95px;top:4762.5px;width:457px;height:29px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.7px" data-w="457" data-h="29" data-n="1" data-ink="0.66" data-fs="39.7">PAGE 4 / RECENT PROJECT</span></div>
+<div class="tb rv" style="left:102px;top:4888.5px;width:340px;height:65px;align-items:center;justify-content:flex-start;"><span class="t ps" style="text-align:left;font-size:90.3px" data-w="340" data-h="65" data-n="1" data-ink="0.66" data-fs="90.3">PROJECT</span></div>
+<img class="e hl rv" src="img/041-vector-11.webp" width="1675" height="1" alt="" style="left:123px;top:5073.5px;"  draggable="false">
+<a class="g rv proj" style="left:123px;top:5074px;width:1674.5px;height:500px;" href="https://Thestic34.itch.io" target="_blank" rel="noopener" aria-label="Whisker Dash di itch.io" style="--d:.05s"><img class="e pimg" src="img/042-whatsapp-image-2026-11-17-at-01-.webp" width="240" height="427" alt="Whisker Dash preview" style="left:235px;top:36px;"  draggable="false"><div class="tb ptitle" style="left:837px;top:48.5px;width:382px;height:42px;align-items:center;justify-content:flex-start;"><span class="t mb" style="text-align:left;font-size:63.7px" data-w="382" data-h="42" data-n="1" data-ink="0.66" data-fs="63.7">WHISKER DASH</span></div><div class="tb" style="left:837px;top:132px;width:672px;height:160px;align-items:flex-start;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.5px" data-w="672" data-h="160" data-n="4" data-ink="0.82" data-fs="39.5" data-top="1">An endless runner game where the<br>player takes on the role of a cat,<br>collecting food and surviving for<br>as long as possible.</span></div><div class="tb" style="left:837px;top:316px;width:658px;height:112px;align-items:flex-start;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.9px" data-w="658" data-h="112" data-n="3" data-ink="0.82" data-fs="39.9" data-top="1">As :<br>Lead Programmer, Technical Artist<br>Second UI/UX</span></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+<img class="e hl rv" src="img/043-vector-12.webp" width="1675" height="1" alt="" style="left:123px;top:5573.5px;"  draggable="false">
+<a class="g rv proj" style="left:123px;top:5574px;width:1674.5px;height:500px;" href="https://Thestic34.itch.io" target="_blank" rel="noopener" aria-label="Uphill Delivery di itch.io" style="--d:.05s"><img class="e pimg" src="img/044-image-9.webp" width="697" height="435" alt="Uphill Delivery preview" style="left:0px;top:32px;"  draggable="false"><div class="tb ptitle" style="left:837px;top:42px;width:477px;height:41px;align-items:center;justify-content:flex-start;"><span class="t mb" style="text-align:left;font-size:63.6px" data-w="477" data-h="41" data-n="1" data-ink="0.66" data-fs="63.6">UPHILL DELIVERY</span></div><div class="tb" style="left:837px;top:125px;width:698px;height:118px;align-items:flex-start;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.9px" data-w="698" data-h="118" data-n="3" data-ink="0.82" data-fs="39.9" data-top="1">A physics-based ragdoll game where<br>players deliver packages to a house<br>on a challenging hill.</span></div><div class="tb" style="left:837px;top:309px;width:698px;height:112px;align-items:flex-start;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.9px" data-w="698" data-h="112" data-n="3" data-ink="0.82" data-fs="39.9" data-top="1">As :<br>Second Programmer, Technical Artist<br>Second UI/UX</span></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+<img class="e hl rv" src="img/045-vector-13.webp" width="1675" height="1" alt="" style="left:123px;top:6073.5px;"  draggable="false">
+<a class="g rv proj" style="left:123px;top:6074px;width:1674.5px;height:500px;" href="https://Thestic34.itch.io" target="_blank" rel="noopener" aria-label="Stellar Conflict di itch.io" style="--d:.05s"><img class="e pimg" src="img/046-image-10.webp" width="697" height="435" alt="Stellar Conflict preview" style="left:0px;top:32px;"  draggable="false"><div class="tb ptitle" style="left:837px;top:44.5px;width:509px;height:42px;align-items:center;justify-content:flex-start;"><span class="t mb" style="text-align:left;font-size:63.6px" data-w="509" data-h="42" data-n="1" data-ink="0.66" data-fs="63.6">STELLAR CONFLICT</span></div><div class="tb" style="left:837px;top:128px;width:638px;height:118px;align-items:flex-start;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.9px" data-w="638" data-h="118" data-n="3" data-ink="0.82" data-fs="39.9" data-top="1">A casual game where players must<br>survive each level by fighting<br>against enemy aircraft.</span></div><div class="tb" style="left:837px;top:312px;width:658px;height:112px;align-items:flex-start;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.9px" data-w="658" data-h="112" data-n="3" data-ink="0.82" data-fs="39.9" data-top="1">As :<br>Lead Programmer, Technical Artist<br>Lead UI/UX</span></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+<img class="e hl rv" src="img/047-vector-14.webp" width="1675" height="1" alt="" style="left:123px;top:6573.5px;"  draggable="false">
+<a class="g rv proj" style="left:123px;top:6574px;width:1674.5px;height:500px;" href="https://Thestic34.itch.io" target="_blank" rel="noopener" aria-label="Baabaabeep di itch.io" style="--d:.05s"><img class="e pimg" src="img/048-image-11.webp" width="697" height="435" alt="Baabaabeep preview" style="left:0px;top:32px;"  draggable="false"><div class="tb ptitle" style="left:837px;top:45px;width:316px;height:41px;align-items:center;justify-content:flex-start;"><span class="t mb" style="text-align:left;font-size:63.2px" data-w="316" data-h="41" data-n="1" data-ink="0.66" data-fs="63.2">BAABAABEEP</span></div><div class="tb" style="left:837px;top:128px;width:638px;height:160px;align-items:flex-start;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.9px" data-w="638" data-h="160" data-n="4" data-ink="0.82" data-fs="39.9" data-top="1">A casual game where players must<br>work together to complete<br>objectives and escape from the<br>planet.</span></div><div class="tb" style="left:837px;top:312px;width:698px;height:112px;align-items:flex-start;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.9px" data-w="698" data-h="112" data-n="3" data-ink="0.82" data-fs="39.9" data-top="1">As :<br>Second Programmer, Technical Artist<br>Lead UI/UX</span></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+<img class="e hl rv" src="img/049-vector-15.webp" width="1675" height="1" alt="" style="left:123px;top:7073.5px;"  draggable="false">
+<div class="g rv proj soon" style="left:123px;top:7074px;width:1674.5px;height:500px;" style="--d:.05s"><img class="e pimg" src="img/050-image-12.webp" width="697" height="435" alt="Coming soon" style="left:0px;top:32px;"  draggable="false"><div class="tb ptitle" style="left:837px;top:228.5px;width:732px;height:42px;align-items:center;justify-content:flex-start;"><span class="t mb" style="text-align:left;font-size:63.7px" data-w="732" data-h="42" data-n="1" data-ink="0.66" data-fs="63.7">COMING SOON HORROR GAME</span></div></div>
+<img class="e hl rv" src="img/051-vector-16.webp" width="1675" height="1" alt="" style="left:123px;top:7573.5px;"  draggable="false">
+</section>
+<span id="contact" class="anchor" style="top:7674px"></span>
+<section aria-label="Contact">
+<div class="tb rv" style="left:95px;top:7696.5px;width:317px;height:29px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.6px" data-w="317" data-h="29" data-n="1" data-ink="0.66" data-fs="39.6">PAGE 5 / CONTACT</span></div>
+<div class="tb rv" style="left:95px;top:7804.5px;width:366px;height:65px;align-items:center;justify-content:flex-start;"><span class="t ps" style="text-align:left;font-size:90.3px" data-w="366" data-h="65" data-n="1" data-ink="0.66" data-fs="90.3">CONTACT</span></div>
+<img class="e rv" src="img/052-vector-22.webp" width="1207" height="691" alt="" style="left:94.2px;top:7971.5px;"  draggable="false">
+<div class="tb rv" style="left:181px;top:8047px;width:156px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39px" data-w="156" data-h="26" data-n="1" data-ink="0.66" data-fs="39">PERSONAL</span></div>
+<div class="tb rv" style="left:181px;top:8107.5px;width:323px;height:42px;align-items:center;justify-content:flex-start;"><span class="t ps" style="text-align:left;font-size:58.3px" data-w="323" data-h="42" data-n="1" data-ink="0.66" data-fs="58.3">CONTACT ME</span></div>
+<div class="tb rv" style="left:181px;top:8183.5px;width:627px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:35.8px" data-w="627" data-h="26" data-n="1" data-ink="0.66" data-fs="35.8">UI / UX DESIGNER - TECHNICAL ARTIST</span></div>
+<img class="e hl rv" src="img/053-vector-24.webp" width="1205" height="1" alt="" style="left:95px;top:8239.5px;"  draggable="false">
+<img class="e hl rv" src="img/054-vector-25.webp" width="1205" height="1" alt="" style="left:95px;top:8316.5px;"  draggable="false">
+<img class="e hl rv" src="img/055-vector-26.webp" width="1205" height="1" alt="" style="left:95px;top:8393.5px;"  draggable="false">
+<img class="e hl rv" src="img/056-vector-27.webp" width="1205" height="1" alt="" style="left:95px;top:8470.5px;"  draggable="false">
+<img class="e hl rv" src="img/057-vector-28.webp" width="1205" height="1" alt="" style="left:95px;top:8547.5px;"  draggable="false">
+<button class="g rv crow" style="left:95px;top:8240px;width:1205px;height:77px;" type="button" data-copy="rachmaditegar@gmail.com" aria-label="Salin email rachmaditegar@gmail.com" style="--d:0.0s"><div class="tb" style="left:187px;top:24px;width:341px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:29.7px" data-w="341" data-h="26" data-n="1" data-ink="0.82" data-fs="29.7">rachmaditegar@gmail.com</span></div><svg class="ci" style="left:1073px;top:15.5px;width:46px;height:46px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></button>
+<a class="g rv crow" style="left:95px;top:8317px;width:1205px;height:77px;" href="https://github.com/Thestic34" target="_blank" rel="noopener" aria-label="GitHub" style="--d:0.06s"><div class="tb" style="left:187px;top:27px;width:417px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:29.8px" data-w="417" data-h="26" data-n="1" data-ink="0.82" data-fs="29.8">https://github.com/Thestic34</span></div><svg class="ci" style="left:1073px;top:15.5px;width:46px;height:46px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+<a class="g rv crow" style="left:95px;top:8394px;width:1205px;height:77px;" href="https://Thestic34.itch.io" target="_blank" rel="noopener" aria-label="itch.io" style="--d:0.12s"><div class="tb" style="left:187px;top:28.5px;width:372px;height:25px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:29.8px" data-w="372" data-h="25" data-n="1" data-ink="0.82" data-fs="29.8">https://Thestic34.itch.io</span></div><svg class="ci" style="left:1073px;top:15.5px;width:46px;height:46px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258A4 4 0 0 0 17.32 5z"/></svg></a>
+<a class="g rv crow" style="left:95px;top:8471px;width:1205px;height:77px;" href="https://www.linkedin.com/in/TegarRachmadi" target="_blank" rel="noopener" aria-label="LinkedIn" style="--d:0.18s"><div class="tb" style="left:187px;top:27px;width:610.1px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:29.8px" data-w="610.1" data-h="26" data-n="1" data-ink="0.82" data-fs="29.8">https://www.linkedin.com/in/TegarRachmadi</span></div><svg class="ci" style="left:1073px;top:15.5px;width:46px;height:46px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+<img class="e rv perf" src="img/058-line-9.webp" width="4" height="601" alt="" style="left:1298px;top:8016px;"  draggable="false">
+<div class="g rv stub" style="left:1300px;top:7972px;width:520px;height:690px;" style="--d:.1s"><img class="e" src="img/059-vector-23.webp" width="520" height="691" alt="" style="left:0px;top:-0.5px;"  draggable="false"><div class="tb tk dk" style="left:127px;top:140px;width:65px;height:407px;align-items:center;justify-content:center;"><span class="t ps vert" style="text-align:center;font-size:565.3px" data-w="65" data-h="407" data-n="1" data-ink="0.66" data-fs="565.3" data-axis="h">UR TICKET</span></div><img class="e tk bc" src="img/060-barcode.webp" width="153" height="362" alt="" style="left:272px;top:150px;"  draggable="false"><span class="scan" aria-hidden="true"></span></div>
+</section>
+<footer>
+<img class="e hl rv" src="img/061-vector-17.webp" width="1920" height="7" alt="" style="left:0px;top:8832.4px;"  draggable="false">
+<div class="tb" style="left:130px;top:8909px;width:76px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:38px" data-w="76" data-h="26" data-n="1" data-ink="0.66" data-fs="38">2026</span></div>
+<div class="tb" style="left:268px;top:8909px;width:277px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mb" style="text-align:left;font-size:39.6px" data-w="277" data-h="26" data-n="1" data-ink="0.66" data-fs="39.6">TEGAR RACHMADI</span></div>
+<div class="tb" style="left:758px;top:8909px;width:1116.9px;height:26px;align-items:center;justify-content:flex-start;"><span class="t mo" style="text-align:left;font-size:39.9px" data-w="1116.9" data-h="26" data-n="1" data-ink="0.66" data-fs="39.9">ELECTRONIC ENGINEERING POLYTECHNIC INSTITUTE OF SURABAYA</span></div>
+<img class="e dot" src="img/062-ellipse-5.webp" width="29" height="29" alt="" style="left:43px;top:8907px;"  draggable="false">
+</footer>
+</div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  var wrap = document.getElementById('wrap'), stage = document.getElementById('stage');
+  function fit() {
+    var s = wrap.getBoundingClientRect().width / 1920;
+    wrap.style.setProperty('--s', s);
+    wrap.style.height = (9000 * s) + 'px';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+
+  /* fit every piece of text to the width (or height) of the design it replaces */
+  var texts = [].slice.call(document.querySelectorAll('.t[data-w]'));
+  function fitText() {
+    texts.forEach(function (s) {
+      var tw = +s.getAttribute('data-w'), th = +s.getAttribute('data-h');
+      var nl = +(s.getAttribute('data-n') || 1), vert = s.getAttribute('data-axis') === 'h';
+      var fs = parseFloat(s.getAttribute('data-fs')) || 20;
+      s.style.fontSize = fs + 'px'; s.style.lineHeight = '1.15'; s.style.position = ''; s.style.top = '';
+      var cur = vert ? s.offsetHeight : s.offsetWidth;
+      if (!cur) return;
+      fs = fs * (vert ? th : tw) / cur;
+      s.style.fontSize = fs.toFixed(2) + 'px';
+      if (nl > 1) {
+        var lh = (th - (+s.getAttribute('data-ink') || 0.8) * fs) / (nl - 1);
+        s.style.lineHeight = lh.toFixed(2) + 'px';
+        if (s.getAttribute('data-top')) { s.style.position = 'relative'; s.style.top = (-(lh - 0.7 * fs) / 2).toFixed(1) + 'px'; }
+      } else {
+        s.style.lineHeight = '1';
+      }
+    });
+  }
+  fitText();
+  if (document.fonts && document.fonts.load) {
+    Promise.all(['1em "Lilita One"', '700 1em "Passion One"', '1em Inconsolata', '700 1em Inconsolata']
+      .map(function (f) { return document.fonts.load(f).catch(function () {}); })).then(fitText);
+    document.fonts.ready.then(fitText);
+  }
+  window.addEventListener('load', fitText);
+
+  /* scroll reveal */
+  var rv = [].slice.call(document.querySelectorAll('.rv'));
+  var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!('IntersectionObserver' in window) || calm) {
+    rv.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    rv.forEach(function (el) { io.observe(el); });
+  }
+
+  /* hero parallax */
+  var fine = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (fine && !calm) {
+    var tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+    function tick() {
+      cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
+      stage.style.setProperty('--mx', cx.toFixed(3));
+      stage.style.setProperty('--my', cy.toFixed(3));
+      raf = (Math.abs(tx - cx) > 0.002 || Math.abs(ty - cy) > 0.002) ? requestAnimationFrame(tick) : 0;
+    }
+    window.addEventListener('mousemove', function (e) {
+      tx = (e.clientX / window.innerWidth - 0.5) * 2;
+      ty = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+  }
+
+  /* toast */
+  var toastEl = document.getElementById('toast'), tt = 0;
+  function toast(msg) {
+    toastEl.textContent = msg; toastEl.classList.add('show');
+    clearTimeout(tt); tt = setTimeout(function () { toastEl.classList.remove('show'); }, 2200);
+  }
+
+  /* playlist rows: toggle "playing" */
+  var trks = [].slice.call(document.querySelectorAll('.trk'));
+  trks.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var on = !b.classList.contains('playing');
+      trks.forEach(function (o) { o.classList.remove('playing'); o.setAttribute('aria-pressed', 'false'); });
+      if (on) { b.classList.add('playing'); b.setAttribute('aria-pressed', 'true'); }
+    });
+  });
+
+  /* copy email (mailto links are unreliable here, so show it and copy it) */
+  [].slice.call(document.querySelectorAll('[data-copy]')).forEach(function (b) {
+    b.addEventListener('click', function () {
+      var txt = b.getAttribute('data-copy');
+      var done = function () { toast('Email disalin'); };
+      var fallback = function () {
+        var t = document.createElement('textarea'); t.value = txt; t.style.position = 'fixed'; t.style.opacity = '0';
+        document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); done(); } catch (e) { toast(txt); }
+        document.body.removeChild(t);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, fallback);
+      else fallback();
+    });
+  });
+})();
+</script>
+</body>
+</html>
